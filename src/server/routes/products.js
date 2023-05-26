@@ -69,11 +69,6 @@ router.put('/:id', async (req, res) => {
     body: { name, salePrice, purchasePrice, quantity }
   } = req;
 
-  // Verificar campos vacíos
-  if (!name || !salePrice || !purchasePrice || !quantity) {
-    return res.json({ message: 'All fields are required' });
-  }
-
   if (salePrice < purchasePrice) {
     return res.json({
       message: 'Sale Price must be higher than the Purchase Price'

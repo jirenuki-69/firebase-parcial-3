@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     const services = await Service.find();
     return res.json(services);
   } catch (error) {
-    returnres.json({ message: error.message });
+    return res.json({ message: error.message });
   }
 });
 

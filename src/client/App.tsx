@@ -10,6 +10,8 @@ import AddProductScreen from './screens/AddProductScreen';
 import ServicesScreen from './screens/ServicesScreen';
 import AddServiceScreen from './screens/AddServiceScreen';
 import ServiceEditScreen from './screens/ServiceEditScreen';
+import SalesScreen from './screens/SalesScreen';
+import AddSaleScreen from './screens/AddSaleScreen';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -33,6 +35,8 @@ export default function App() {
         <Stack.Screen name="services" component={ServicesScreen} />
         <Stack.Screen name="add-service" component={AddServiceScreen} />
         <Stack.Screen name="service-edit" component={ServiceEditScreen} />
+        <Stack.Screen name="sales" component={SalesScreen} />
+        <Stack.Screen name="add-sale" component={AddSaleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

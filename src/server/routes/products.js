@@ -21,7 +21,7 @@ async function getProduct(req, res, next) {
   } catch (error) {
     return res.json({ message: error.message });
   }
-};
+}
 
 router.get('/', async (req, res) => {
   try {
@@ -37,18 +37,26 @@ router.get('/:id', getProduct, (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const product = new Product({
-    name: req.body.name,
-    salePrice: req.body.salePrice,
-    purchasePrice: req.body.purchasePrice,
-    quantity: req.body.quantity || 0,
-  });
-
-  if (product.salePrice < product.purchasePrice) {
-    return res.json({ message: 'Sale Price must be higher than the Purchase Price' });
-  }
-
   try {
+    const { name, salePrice, purchasePrice, quantity } = req.body;
+
+    if (!name || !salePrice || !purchasePrice || !quantity) {
+      return res.json({ message: 'All fields are required' });
+    }
+
+    const product = new Product({
+      name,
+      salePrice: Number(salePrice),
+      purchasePrice: Number(purchasePrice),
+      quantity: Number(quantity)
+    });
+
+    if (product.salePrice < product.purchasePrice) {
+      return res.json({
+        message: 'Sale Price must be higher than the Purchase Price'
+      });
+    }
+
     const newProduct = await product.save();
     return res.json(newProduct);
   } catch (error) {
@@ -56,8 +64,43 @@ router.post('/', async (req, res) => {
   }
 });
 
-//! Put or Patch
-router.put('');
+router.put('/:id', async (req, res) => {
+  const {
+    body: { name, salePrice, purchasePrice, quantity }
+  } = req;
+
+  // Verificar campos vacíos
+  if (!name || !salePrice || !purchasePrice || !quantity) {
+    return res.json({ message: 'All fields are required' });
+  }
+
+  if (salePrice < purchasePrice) {
+    return res.json({
+      message: 'Sale Price must be higher than the Purchase Price'
+    });
+  }
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        salePrice,
+        purchasePrice,
+        quantity
+      },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.json({ message: 'Product not found' });
+    }
+
+    return res.json(updatedProduct);
+  } catch (error) {
+    return res.json({ message: error.message });
+  }
+});
 
 router.delete('/:id', getProduct, async (req, res) => {
   try {

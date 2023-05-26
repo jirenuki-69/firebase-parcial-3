@@ -9,6 +9,7 @@ const HomeScreen: React.FC<CustomScreenProps> = ({ navigation }) => (
   <View style={styles.container}>
     <TextHeadline text="Home" bold />
     <Button text="Products" onClick={() => navigation.navigate('products')} />
+    <Button text="Services" onClick={() => navigation.navigate('services')} />
   </View>
 );
 

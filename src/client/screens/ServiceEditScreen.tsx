@@ -3,22 +3,22 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { NavigationScreenProp } from 'react-navigation';
 import Constants from 'expo-constants';
+import useServiceEditScreen from '../hooks/useServiceEditScreen';
 import TextFieldIcon from '../components/TextFieldIcon';
-import useProductEditScreen from '../hooks/useProductEditScreen';
 import Button from '../components/Button';
 
-type ProductEditScreenProps = {
-  route: RouteProp<{ params: { product: Product } }>;
+type ServiceEditScreenProps = {
+  route: RouteProp<{ params: { service: Service } }>;
   navigation: NavigationScreenProp<any, any>;
 };
 
-const ProductEdit: React.FC<ProductEditScreenProps> = ({
+const ServiceEditScreen: React.FC<ServiceEditScreenProps> = ({
   route,
   navigation
 }) => {
-  const { product } = route.params;
-  const { onChangeProduct, updateProduct, deleteProduct } =
-    useProductEditScreen({ product });
+  const { service } = route.params;
+  const { onChangeService, updateService, deleteService } =
+    useServiceEditScreen({ service });
 
   return (
     <ScrollView>
@@ -27,37 +27,29 @@ const ProductEdit: React.FC<ProductEditScreenProps> = ({
           label="Name"
           placeholder="Name"
           iconName="inventory"
-          onTextChange={(value) => onChangeProduct('name', value)}
-          initialValue={product.name}
+          onTextChange={(value) => onChangeService('name', value)}
+          initialValue={service.name}
         />
         <TextFieldIcon
           label="Sale Price"
           placeholder="Sale Price"
           iconName="receipt"
-          onTextChange={(value) => onChangeProduct('salePrice', value)}
-          initialValue={product.salePrice.toString()}
+          onTextChange={(value) => onChangeService('salePrice', value)}
+          initialValue={service.salePrice.toString()}
           keyboardType="numeric"
         />
         <TextFieldIcon
           label="Purchase Price"
           placeholder="Purchase Price"
           iconName="receipt"
-          onTextChange={(value) => onChangeProduct('purchasePrice', value)}
-          initialValue={product.purchasePrice.toString()}
+          onTextChange={(value) => onChangeService('price', value)}
+          initialValue={service.price.toString()}
           keyboardType="numeric"
         />
-        <TextFieldIcon
-          label="Quantity"
-          placeholder="Quantity"
-          iconName="receipt"
-          onTextChange={(value) => onChangeProduct('quantity', value)}
-          initialValue={product.quantity.toString()}
-          keyboardType="numeric"
-        />
-        <Button text="Save" onClick={updateProduct} />
+        <Button text="Save" onClick={updateService} />
         <Button
           text="Delete"
-          onClick={() => deleteProduct(navigation)}
+          onClick={() => deleteService(navigation)}
           style={{ backgroundColor: 'red' }}
         />
       </View>
@@ -72,4 +64,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductEdit;
+export default ServiceEditScreen;

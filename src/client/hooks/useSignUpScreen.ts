@@ -20,13 +20,13 @@ const useSignUpScreen = (): SignUpScreenResult => {
       const response = await api.post('/auth/register', { email, password });
 
       if (response.data.message) {
-        showToast(response.data.message, 'error');
+        showToast(response.data.message);
       } else {
         AsyncStorage.setItem('@token', response.data.token);
         navigation.navigate('home');
       }
     } catch (error) {
-      showToast('Server Error', 'error');
+      showToast('Server Error');
     }
   };
 

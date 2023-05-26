@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import { NavigationScreenProp } from 'react-navigation';
@@ -6,34 +6,27 @@ import ProductCardInfo from './ProductCardInfo';
 import ProductImage from './ProductImage';
 
 type Props = {
-  product: Product;
+  service: Service;
   navigation: NavigationScreenProp<any, any>;
 };
 
-const ProductCard: React.FC<Props> = ({ product, navigation }) => (
-  <Pressable onPress={() => navigation.navigate('product-edit', { product })}>
+const ServiceCard: React.FC<Props> = ({ service, navigation }) => (
+  <Pressable onPress={() => navigation.navigate('service-edit', { service })}>
     <View style={styles.container}>
       <View style={styles.logoContainer}></View>
       <View style={styles.userInfoContainer}>
         <ProductImage />
         <View style={styles.nameContainer}>
           <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>
-            {product.name}
+            {service.name}
           </Text>
         </View>
         <View style={styles.row}>
           <ProductCardInfo
             title="Sale Price"
-            content={product.salePrice.toString()}
+            content={service.salePrice.toString()}
           />
-          <ProductCardInfo
-            title="Purchase Price"
-            content={product.purchasePrice.toString()}
-          />
-          <ProductCardInfo
-            title="Quantity"
-            content={product.quantity.toString()}
-          />
+          <ProductCardInfo title="Price" content={service.price.toString()} />
         </View>
       </View>
     </View>
@@ -89,4 +82,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductCard;
+export default ServiceCard;

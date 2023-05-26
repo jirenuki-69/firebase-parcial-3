@@ -1,8 +1,5 @@
-import Toast from 'react-native-toast-message';
+import { ToastAndroid } from 'react-native';
 
-export const showToast = (message: string, type: string = 'success') => {
-  Toast.show({
-    type,
-    text1: message
-  });
+export const showToast = (message: string) => {
+  ToastAndroid.show(message, ToastAndroid.SHORT);
 };

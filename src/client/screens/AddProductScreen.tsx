@@ -4,21 +4,19 @@ import { RouteProp } from '@react-navigation/native';
 import { NavigationScreenProp } from 'react-navigation';
 import Constants from 'expo-constants';
 import TextFieldIcon from '../components/TextFieldIcon';
-import useProductEditScreen from '../hooks/useProductEditScreen';
+import useAddProductScreen from '../hooks/useAddProductScreen';
 import Button from '../components/Button';
 
-type ProductEditScreenProps = {
+type AddProductScreenProps = {
   route: RouteProp<{ params: { product: Product } }>;
   navigation: NavigationScreenProp<any, any>;
 };
 
-const ProductEdit: React.FC<ProductEditScreenProps> = ({
+const AddProductScreen: React.FC<AddProductScreenProps> = ({
   route,
   navigation
 }) => {
-  const { product } = route.params;
-  const { onChangeProduct, updateProduct, deleteProduct } =
-    useProductEditScreen({ product });
+  const { onChangeProduct, addProduct } = useAddProductScreen();
 
   return (
     <ScrollView>
@@ -28,14 +26,12 @@ const ProductEdit: React.FC<ProductEditScreenProps> = ({
           placeholder="Name"
           iconName="inventory"
           onTextChange={(value) => onChangeProduct('name', value)}
-          initialValue={product.name}
         />
         <TextFieldIcon
           label="Sale Price"
           placeholder="Sale Price"
           iconName="receipt"
           onTextChange={(value) => onChangeProduct('salePrice', value)}
-          initialValue={product.salePrice.toString()}
           keyboardType="numeric"
         />
         <TextFieldIcon
@@ -43,7 +39,6 @@ const ProductEdit: React.FC<ProductEditScreenProps> = ({
           placeholder="Purchase Price"
           iconName="receipt"
           onTextChange={(value) => onChangeProduct('purchasePrice', value)}
-          initialValue={product.purchasePrice.toString()}
           keyboardType="numeric"
         />
         <TextFieldIcon
@@ -51,15 +46,9 @@ const ProductEdit: React.FC<ProductEditScreenProps> = ({
           placeholder="Quantity"
           iconName="receipt"
           onTextChange={(value) => onChangeProduct('quantity', value)}
-          initialValue={product.quantity.toString()}
           keyboardType="numeric"
         />
-        <Button text="Save" onClick={updateProduct} />
-        <Button
-          text="Delete"
-          onClick={() => deleteProduct(navigation)}
-          style={{ backgroundColor: 'red' }}
-        />
+        <Button text="Add" onClick={addProduct} />
       </View>
     </ScrollView>
   );
@@ -72,4 +61,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductEdit;
+export default AddProductScreen;

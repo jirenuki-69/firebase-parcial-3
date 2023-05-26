@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { NavigationScreenProp } from 'react-navigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from '../service/api';
-import { showToast } from '../../helpers/constants';
 
 type ProductsScreenResult = {
   products: Product[];
+  getProducts: () => void;
 };
 
 const useProductsScreen = (): ProductsScreenResult => {
@@ -21,7 +19,8 @@ const useProductsScreen = (): ProductsScreenResult => {
   }, [])
 
   return {
-    products
+    products,
+    getProducts
   };
 };
 

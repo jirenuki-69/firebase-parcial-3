@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema(
     name: { type: String, required: true },
     salePrice: { type: Number, required: true },
     purchasePrice: { type: Number, required: true },
-    quantity: { type: Number }
+    quantity: { type: Number, required: true }
   },
   { versionKey: false }
 );

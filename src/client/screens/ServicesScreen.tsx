@@ -3,21 +3,21 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import TextHeadline from '../components/TextHeadline';
 import { CustomScreenProps } from '../interfaces/ScreenProps';
-import useProductsScreen from '../hooks/useProductsScreen';
-import ProductCard from '../components/ProductCard';
+import useServicesScreen from '../hooks/useServicesScreen';
+import ServiceCard from '../components/ServiceCard';
 import Button from '../components/Button';
 
-const ProductsScreen: React.FC<CustomScreenProps> = ({ navigation }) => {
-  const { products, getProducts } = useProductsScreen();
+const ServicesScreen: React.FC<CustomScreenProps> = ({ navigation }) => {
+  const { services, getServices } = useServicesScreen();
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <TextHeadline text="Products" bold />
-        <Button text='Add Product' onClick={() => navigation.navigate('add-product')} />
-        <Button text='Refresh Products' onClick={getProducts} />
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product} navigation={navigation} />
+        <TextHeadline text="Services" bold />
+        <Button text='Add Service' onClick={() => navigation.navigate('add-service')} />
+        <Button text='Refresh Services' onClick={getServices} />
+        {services.map((service) => (
+          <ServiceCard key={service._id} service={service} navigation={navigation} />
         ))}
       </View>
     </ScrollView>
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductsScreen;
+export default ServicesScreen;

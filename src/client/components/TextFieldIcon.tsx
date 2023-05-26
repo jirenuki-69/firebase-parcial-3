@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet } from 'react-native';
 import { TextInput, IconButton } from '@react-native-material/core';
 import { MaterialIcons } from '@expo/vector-icons';
 import useTextField from '../hooks/useTextField';
@@ -11,6 +11,8 @@ type TextFieldIconProps = {
   iconName: any;
   validateCode?: Validate;
   onTextChange: (value: string) => void;
+  initialValue?: string;
+  keyboardType?: KeyboardTypeOptions
 };
 
 const TextFieldIcon: React.FC<TextFieldIconProps> = ({
@@ -18,10 +20,12 @@ const TextFieldIcon: React.FC<TextFieldIconProps> = ({
   placeholder,
   iconName,
   validateCode = 'text',
-  onTextChange
+  onTextChange,
+  initialValue = '',
+  keyboardType = 'default'
 }) => {
   const { value, error, handleTextInputChange } = useTextField({
-    initialValue: '',
+    initialValue,
     validateCode
   });
 
@@ -43,6 +47,7 @@ const TextFieldIcon: React.FC<TextFieldIconProps> = ({
           handleTextInputChange(value);
           onTextChange(value);
         }}
+        keyboardType={keyboardType}
       />
       <TextInputErrorMessage errorMessage={error} />
     </>
